@@ -5,32 +5,79 @@ import { Person } from '../shared/model/person';
   providedIn: 'root'
 })
 export class PeronsService {
-  persons = new Map<number, Person>();
-  nextId = 1;
+  private readonly NEXT_ID_KEY = "nextId";
+
+  private getNextId() : number {
+    let nextIdString = localStorage.getItem(this.NEXT_ID_KEY);
+
+    /*if (nextIdString) {
+      return parseInt(nextIdString);
+    } else {
+      return 0;
+    }*/
+
+    return nextIdString ? parseInt(nextIdString) : 0;
+  }
+
+  private setNextId(id : number) {
+    localStorage.setItem(this.NEXT_ID_KEY, id.toString());
+  }
+
+  private setPersons(allPersons : Map<number, Person>) {
+    localStorage.setItem(this.PERSON_KEY,
+      JSON.stringify(Array.from(allPersons.values())));
+  }
+
+  private getPersons() : Map<number, Person> {
+    let personString = localStorage.getItem(this.PERSON_KEY);
+    let idToPerson = new Map<number, Person>();
+
+    if (personString) {
+      JSON.parse(personString).forEach((person : Person) => {
+        Object.setPrototypeOf(person, Person.prototype)
+        idToPerson.set(person.id, person);
+      });
+    }
+
+    return idToPerson;
+  }
+
+  private readonly PERSON_KEY = "persons";
 
   constructor() { }
 
   list() : Person[] {
-    return Array.from(this.persons.values());
+    return Array.from(this.getPersons().values());
   }
 
   get(id : number) : Person | undefined {
-    return this.persons.get(id);
+    return this.getPersons().get(id);
   }
 
   add(newPersonData:Person) {
-    newPersonData.id = this.nextId
-    this.persons.set(this.nextId, newPersonData);
-    this.nextId++;
+    let nextId = this.getNextId();
+    newPersonData.id = nextId
+
+    let personsData = this.getPersons();
+    personsData.set(nextId, newPersonData);
+    this.setPersons(personsData);
+
+    this.setNextId(++nextId);
   }
  
   update(existingPerson : Person) : void {
-    if (this.persons.has(existingPerson.id)) {
-      this.persons.set(existingPerson.id, existingPerson);
+    let personsData = this.getPersons();
+
+    if (personsData.has(existingPerson.id)) {
+      personsData.set(existingPerson.id, existingPerson);
+      this.setPersons(personsData);
     }
   }
 
   delete(existingPersonId : number) : void {
-    this.persons.delete(existingPersonId);
+    let personsData = this.getPersons();
+
+    personsData.delete(existingPersonId);
+    this.setPersons(personsData);
   }
 }
