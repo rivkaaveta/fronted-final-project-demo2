@@ -6,15 +6,12 @@ import { Person } from '../shared/model/person';
 })
 export class PeronsService {
   private readonly NEXT_ID_KEY = "nextId";
+  private readonly PERSON_KEY = "persons";
+
+  constructor() { }
 
   private getNextId() : number {
     let nextIdString = localStorage.getItem(this.NEXT_ID_KEY);
-
-    /*if (nextIdString) {
-      return parseInt(nextIdString);
-    } else {
-      return 0;
-    }*/
 
     return nextIdString ? parseInt(nextIdString) : 0;
   }
@@ -41,10 +38,6 @@ export class PeronsService {
 
     return idToPerson;
   }
-
-  private readonly PERSON_KEY = "persons";
-
-  constructor() { }
 
   list() : Person[] {
     return Array.from(this.getPersons().values());
