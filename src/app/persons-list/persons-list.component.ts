@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PeronsService } from '../services/perons.service';
 import { Person } from '../shared/model/person';
 import { MatTableModule } from '@angular/material/table';
