@@ -52,7 +52,7 @@ export class PersonFormComponent implements OnInit {
     } else {
       this.personService.add(this.currentPerson)
     }
-    this.router.navigate(['/persons']);
+    this.router.navigate(['']);
   }
 
   addPhoneNumber() {

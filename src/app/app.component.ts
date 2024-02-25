@@ -10,7 +10,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'demo-app1';
 
-  isDisabledParent = true;
 }
