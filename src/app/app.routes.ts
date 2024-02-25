@@ -6,9 +6,9 @@ import { NgforDemoComponent } from './ngfor-demo/ngfor-demo.component';
 import { NgifDemoComponent } from './ngif-demo/ngif-demo.component';
 import { HomeComponent } from './home/home.component';
 import { RouterParamDemoComponent } from './router-param-demo/router-param-demo.component';
-import { FormsDemoComponent } from './forms-demo/forms-demo.component';
 import { PersonsListComponent } from './persons-list/persons-list.component';
 import { PersonFormComponent } from './person-form/person-form.component';
+import { ErrorsDemoComponent } from './errors-demo/errors-demo.component';
 
 export const routes: Routes = [
     {path: 'binding', component: BindingComponent},
@@ -21,5 +21,6 @@ export const routes: Routes = [
     
     {path: 'person/:id', component : PersonFormComponent},
     {path: 'newperson', component : PersonFormComponent},
-    {path: 'persons', component : PersonsListComponent}
+    {path: 'persons', component : PersonsListComponent},
+    {path: 'errors', component : ErrorsDemoComponent}
 ];
