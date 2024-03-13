@@ -1,0 +1,6 @@
+.team-view-container {
+    display: flex;
+   }
+   .person-card {
+    margin: 8px;
+   }
